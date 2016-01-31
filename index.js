@@ -5,9 +5,10 @@ var fs = require('fs');
 var Converter = require("csvtojson").Converter;
 var converter = new Converter({});
 
-function makeChart(dataFilePath, configFilePath){
+function makeChart(dataFilePath, configFilePath, viewBox){
 	//get config file at path provided
 	var settings = require(configFilePath);
+	var viewBoxArray = viewBox ? viewBox.split(' ') : [];
 
 	function doStuff(error, window){
 		var body = window.document.querySelector('body');
@@ -19,7 +20,14 @@ function makeChart(dataFilePath, configFilePath){
 		//end_parsed will be emitted once parsing finished 
 		converter.on("end_parsed", function (jsonArray) {
 		   chart.init(jsonArray); //here is your result jsonarray 
-		   console.log(chart.svg.node().parentNode.outerHTML)
+		   var svg = chart.svg.node().parentNode;
+		   //crop svg if argument supplied
+		   if(viewBox && viewBoxArray.length === 4){
+			   svg.setAttribute('viewBox', viewBoxArray.join(' '));
+			   svg.setAttribute('width', viewBoxArray[2]);
+			   svg.setAttribute('height', viewBoxArray[3]);
+			}
+		   console.log(svg.outerHTML);
 		});
 		 
 		//read from file 
