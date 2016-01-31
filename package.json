@@ -1,6 +1,6 @@
 {
   "name": "webcharts-cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "CLI tool for webcharts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,6 @@
   },
   "preferGlobal": true,
   "bin": {
-    "webcharts": "index.js"
+    "webcharts": "bin/index.js"
   }
 }
