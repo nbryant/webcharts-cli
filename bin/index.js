@@ -8,7 +8,7 @@ program
   .option('-c, --config', 'config file to use for chart settings')
   .option('-d, --data', 'csv file to use for chart data')
   .option('-v, --viewbox', 'viewbox to crop svg')
-  .action(function(config, data, viewbox){
-  	makeChart(data, config, viewbox)
+  .action(function(config, data, viewbox) {
+  	makeChart(data, config, viewbox);
   })
   .parse(process.argv);
