@@ -1,3 +1,4 @@
+var path = require('path');
 var jsdom = require('jsdom');
 var d3 = require('d3');
 var webcharts = require('webcharts');
@@ -5,9 +6,11 @@ var fs = require('fs');
 var Converter = require("csvtojson").Converter;
 var converter = new Converter({});
 
+var cwd = process.cwd();
+
 function makeChart(dataFilePath, configFilePath, viewBox){
 	//get config file at path provided
-	var settings = require(configFilePath);
+	var settings = require(path.resolve(cwd, configFilePath));
 	var viewBoxArray = viewBox ? viewBox.split(' ') : [];
 
 	function doStuff(error, window){
@@ -31,7 +34,7 @@ function makeChart(dataFilePath, configFilePath, viewBox){
 		});
 		 
 		//read from file 
-		fs.createReadStream(dataFilePath).pipe(converter);
+		fs.createReadStream(path.resolve(cwd, dataFilePath)).pipe(converter);
 	}
 
 	//set up very basic DOM
